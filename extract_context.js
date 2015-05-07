@@ -1,3 +1,4 @@
+
 /*
  This returns the first sentence in the paragraph that
  matches the required term. This is not perfect, but
@@ -44,6 +45,5 @@ function extract_context (surrounding_paragraph, term) {
         context = $.trim(paragraph_text.match(sentenceRegEx)[0]);
     } catch (e) {
     }
-    console.log(context);
     return  context;
 }
