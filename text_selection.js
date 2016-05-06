@@ -60,7 +60,7 @@ function getExtendedSelection() {
 
 function getSelectionPosition() {
     var selection = window.getSelection();
-    var selectionLelection.toString().length;
+    var selectionLength = selection.toString().length;
 
     /*
      The start and end offset need to be calculated separately because they might be in
