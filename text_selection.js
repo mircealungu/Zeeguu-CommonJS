@@ -96,21 +96,13 @@ function getSelectionPosition() {
     };
 }
 
-function selectionOffset(node, offset) {
+function textOffsetOfSelection(node, offset) {
     var nodePosition;
 
     while (node.parentNode.parentNode != null) {
         if (node.parentNode.childNodes.length > 1) {
-            // Find current node in the parent node
-            for (i = 0; i < node.parentNode.childNodes.length; i++) {
-                if (node.isSameNode(node.parentNode.childNodes[i]))
-                    nodePosition = i;
-            }
-            // Calculate position of current node in parent node
-            for (i = 0; i < nodePosition; i++) {
-                var childNode = node.parentNode.childNodes[i]
-                offset += $(childNode).text().length;
-            }
+            nodePosition = findSelectedNodeInParent(node);
+            offset = selectedNodeTextOffset(node, nodePosition, offset);
         }
         node = node.parentNode;
     }
@@ -119,4 +111,20 @@ function selectionOffset(node, offset) {
         "node": node,
         "offset": offset
     };
+}
+
+function findSelectedNodeInParent(node) {
+    for (i = 0; i < node.parentNode.childNodes.length; i++) {
+        if (node.isSameNode(node.parentNode.childNodes[i]))
+            return i;
+    }
+}
+
+function selectedNodeTextOffset(node, nodePosition, offset) {
+    for (i = 0; i < nodePosition; i++) {
+        var childNode = node.parentNode.childNodes[i]
+        offset += $(childNode).text().length;
+    }
+
+    return offset;
 }
